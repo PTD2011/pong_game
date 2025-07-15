@@ -1,3 +1,13 @@
+#Выбор количества раундов
+roundsAmount = int(input('Количество раундов'))
+for i in range(roundsAmount):
+    #логика игры
+    
+
+
+
+
+
 #-----------------
 #Отрисовка поля
 height = 25
@@ -39,4 +49,24 @@ field.append(bottom_border)
 for line in field:
     print(line)
 #-------------------
+#Движение ракеток
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     
