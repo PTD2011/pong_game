@@ -37,7 +37,10 @@ def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball
 
 
 
+
 while isEnd != 'q':
+    firstUserPoints = 0
+    secondUserPoints = 0
     leftPaddleY = (height - paddleHeight) // 2
     rightPaddleY = (height - paddleHeight) // 2
     leftPaddleX = 1
@@ -45,11 +48,39 @@ while isEnd != 'q':
 
     ballX = width // 2
     ballY = height // 2
-    drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY)
-    #for i in range(roundsAmount):
-        #логика игры
+
+    while firstUserPoints + secondUserPoints != roundsAmount:
+        drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY)
+        userTurn = input('Твой ход')
+        print(leftPaddleY)
+
+        if userTurn == 'a':
+            if leftPaddleY > 1:
+                leftPaddleY -= 1
+            else:
+                print('Левая ракетка уже в верхней границе.')
+        elif userTurn == 'z':
+            if leftPaddleY < 21:
+                leftPaddleY += 1
+            else:
+                print('Левая ракетка уже в нижней границе.')
+        elif userTurn == 'k':
+            if rightPaddleY > 1:
+                rightPaddleY -= 1
+            else:
+                print('Правая ракетка уже в верхней границе.')
+        elif userTurn == 'm':
+            if rightPaddleY < 21:
+                rightPaddleY += 1
+            else:
+                print('Правая ракетка уже в нижней границе.')
+        else:
+            print('Такой команды не существует')
+            
+            
+    
     #Движение ракеток
-    isEnd = input('Хочешь ли ты начать заново? q = нет, остальное = да')
+    isEnd = input('Хочешь ли ты начать заново? q = нет, остальное = да: ')
 
     
 
