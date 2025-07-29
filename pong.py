@@ -1,3 +1,6 @@
+import random
+
+
 #Выбор количества раундов
 roundsAmount = int(input('Количество раундов'))
 height = 25
@@ -48,11 +51,24 @@ while isEnd != 'q':
 
     ballX = width // 2
     ballY = height // 2
-
+    isFirstUserTurn = random.randint(0,1)
+    ballDirection = 2 #мяч изначально летит ровно
+    
     while firstUserPoints + secondUserPoints != roundsAmount:
         drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY)
+        
+        if ballX == leftPaddleX:
+            ballX = width // 2
+            ballY = height // 2
+            secondUserPoints += 1
+            isFirstUserTurn = 0
+        elif ballX == rightPaddleX:
+            ballX = width // 2
+            ballY = height // 2
+            firstUserPoints += 1
+            isFirstUserTurn = 1
+            
         userTurn = input('Твой ход')
-        print(leftPaddleY)
 
         if userTurn == 'a':
             if leftPaddleY > 1:
@@ -76,6 +92,22 @@ while isEnd != 'q':
                 print('Правая ракетка уже в нижней границе.')
         else:
             print('Такой команды не существует')
+
+        if isFirstUserTurn == 0:
+            ballX += 1
+        else:
+            ballX -= 1
+            
+        if ballDirection == 1:
+            ballY -= 1
+        elif ballDirection == 3:
+            ballY += 1
+
+            
+        
+            
+
+        
             
             
     
