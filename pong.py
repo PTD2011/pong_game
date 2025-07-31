@@ -38,6 +38,18 @@ def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball
     for line in field:
         print(line)
 
+def ballDirectionControl(ballY, paddleY, ballX, paddleX):
+    ballDirection = 2
+
+    if ballY == paddleY:
+        ballDirection = 1
+    elif ballY == paddleY + 1:
+        ballDirection = 2
+    elif ballY == paddleY + 2:
+        ballDirection = 3
+    return ballDirection
+    
+
 
 
 
@@ -93,6 +105,39 @@ while isEnd != 'q':
         else:
             print('Такой команды не существует')
 
+        if ballY == 1:
+            ballDirection = 3
+        elif abs(ballY - height+1) == 1:
+            ballDirection = 1
+
+
+        if ballY <= leftPaddleY +2 and ballY >= leftPaddleY:
+            if abs(ballX - leftPaddleX) == 1:
+                isFirstUserTurn = 0
+                ballDirection = ballDirectionControl(ballY, leftPaddleY, ballX, leftPaddleX)
+
+        elif ballY <= rightPaddleY +2 and ballY >= rightPaddleY:
+            if abs(ballX - rightPaddleX) == 1:
+                isFirstUserTurn = 1
+                ballDirection = ballDirectionControl(ballY, rightPaddleY, ballX, rightPaddleX)
+            
+
+        '''if ballY <= leftPaddleY +2 and ballY >= leftPaddleY:
+            if abs(ballX - leftPaddleX) == 1:
+                isFirstUserTurn = 0
+                if ballY == leftPaddleY:
+                    ballDirection = 1
+                elif ballY == leftPaddleY + 1:
+                    ballDirection = 2
+                elif ballY == leftPaddleY + 2:
+                    ballDirection = 3'''
+           
+            
+        
+
+       
+
+        
         if isFirstUserTurn == 0:
             ballX += 1
         else:
