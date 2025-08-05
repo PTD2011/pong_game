@@ -9,7 +9,7 @@ paddleHeight = 3
 isEnd = "w"
 
 
-def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball_x, ball_y):     #Отрисовка поля
+def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball_x, ball_y, firstUserPoints,secondUserPoints):     #Отрисовка поля
     field = []
 
     top_border = '+' + '-' * (width - 2) + '+'
@@ -34,6 +34,8 @@ def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball
 
     bottom_border = '+' + '-' * (width - 2) + '+'
     field.append(bottom_border)
+    usersScore = ' ' * (width//2-3) + str(firstUserPoints) + ' : ' + str(secondUserPoints)
+    field.append(usersScore)
 
     for line in field:
         print(line)
@@ -50,9 +52,28 @@ def ballDirectionControl(ballY, paddleY, ballX, paddleX):
     return ballDirection
     
 
+def printCup():
+    cup = """
+           ___________
+          /           \\
+         /             \\
+        /    ЗОЛОТАЯ    \\
+       |                 |
+       |     WINNER!     |
+       |                 |
+       |     РАКЕТКА     |
+       |                 |
+       |                 |
+        \\               /
+         \\             /
+          \\___________/
+            |     |
+            |     |
+            |     |
+            |_____|
+    """
 
-
-
+    print(cup)
 while isEnd != 'q':
     firstUserPoints = 0
     secondUserPoints = 0
@@ -67,7 +88,7 @@ while isEnd != 'q':
     ballDirection = 2 #мяч изначально летит ровно
     
     while firstUserPoints + secondUserPoints != roundsAmount:
-        drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY)
+        drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY,firstUserPoints,secondUserPoints)
         
         if ballX == leftPaddleX:
             ballX = width // 2
@@ -111,31 +132,13 @@ while isEnd != 'q':
             ballDirection = 1
 
 
-        if ballY <= leftPaddleY +2 and ballY >= leftPaddleY:
-            if abs(ballX - leftPaddleX) == 1:
-                isFirstUserTurn = 0
-                ballDirection = ballDirectionControl(ballY, leftPaddleY, ballX, leftPaddleX)
+        if ballY <= leftPaddleY +2 and ballY >= leftPaddleY and abs(ballX - leftPaddleX) == 1:
+            isFirstUserTurn = 0
+            ballDirection = ballDirectionControl(ballY, leftPaddleY, ballX, leftPaddleX)
 
-        elif ballY <= rightPaddleY +2 and ballY >= rightPaddleY:
-            if abs(ballX - rightPaddleX) == 1:
-                isFirstUserTurn = 1
-                ballDirection = ballDirectionControl(ballY, rightPaddleY, ballX, rightPaddleX)
-            
-
-        '''if ballY <= leftPaddleY +2 and ballY >= leftPaddleY:
-            if abs(ballX - leftPaddleX) == 1:
-                isFirstUserTurn = 0
-                if ballY == leftPaddleY:
-                    ballDirection = 1
-                elif ballY == leftPaddleY + 1:
-                    ballDirection = 2
-                elif ballY == leftPaddleY + 2:
-                    ballDirection = 3'''
-           
-            
-        
-
-       
+        elif ballY <= rightPaddleY +2 and ballY >= rightPaddleY and abs(ballX - rightPaddleX) == 1:
+            isFirstUserTurn = 1
+            ballDirection = ballDirectionControl(ballY, rightPaddleY, ballX, rightPaddleX)
 
         
         if isFirstUserTurn == 0:
@@ -155,9 +158,43 @@ while isEnd != 'q':
         
             
             
-    
-    #Движение ракеток
+    drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY,firstUserPoints,secondUserPoints)
+    printCup()
+    if firstUserPoints > secondUserPoints:
+        print('Игрок P1 выиграл набрав', firstUserPoints, 'очков')
+    elif firstUserPoints < secondUserPoints:
+        print('Игрок P2 выиграл набрав', secondUserPoints, 'очков')
+    else:
+        print('Ничья! ' + str(firstUserPoints)+ ' : ' +  str(secondUserPoints))
     isEnd = input('Хочешь ли ты начать заново? q = нет, остальное = да: ')
+
+    
+
+    
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 
     
 
