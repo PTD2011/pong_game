@@ -2,7 +2,7 @@ import random
 
 
 #Выбор количества раундов
-roundsAmount = int(input('Количество раундов'))
+roundsAmount = int(input('Количество раундов: '))
 height = 25
 width = 80
 paddleHeight = 3
@@ -101,7 +101,7 @@ while isEnd != 'q':
             firstUserPoints += 1
             isFirstUserTurn = 1
             
-        userTurn = input('Твой ход')
+        userTurn = input('Твой ход: ')
 
         if userTurn == 'a':
             if leftPaddleY > 1:
