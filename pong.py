@@ -1,44 +1,43 @@
 import random
 
-
-#Выбор количества раундов
-roundsAmount = int(input('Количество раундов: '))
+print("\t\t\t-----Добро пожаловать в игру Pong-----")
 height = 25
 width = 80
 paddleHeight = 3
 isEnd = "w"
 
 
-def drawField(left_paddle_y, right_paddle_y, left_paddle_x, right_paddle_x, ball_x, ball_y, firstUserPoints,secondUserPoints):     #Отрисовка поля
+def drawField(leftPaddleY, rightPaddleY, leftPaddleX, rightPaddleX, ballX, ballY, firstUserPoints,secondUserPoints):     #Отрисовка поля
     field = []
 
-    top_border = '+' + '-' * (width - 2) + '+'
-    field.append(top_border)
+    topBorder = '+' + '-' * (width - 2) + '+'
+    field.append(topBorder)
 
     for y in range(1, height -1):
-        row_chars = []
+        rowChars = []
         for x in range(width):
             if x == 0:
-                row_chars.append('|')
+                rowChars.append('|')
             elif x == width -1:
-                row_chars.append('|')
-            elif x == left_paddle_x and left_paddle_y <= y < left_paddle_y + paddleHeight:
-                row_chars.append('|')
-            elif x == right_paddle_x and right_paddle_y <= y < right_paddle_y + paddleHeight:
-                row_chars.append('|')
-            elif x == ball_x and y == ball_y:
-                row_chars.append('o')
+                rowChars.append('|')
+            elif x == leftPaddleX and leftPaddleY <= y < leftPaddleY + paddleHeight:
+                rowChars.append('|')
+            elif x == rightPaddleX and rightPaddleY <= y < rightPaddleY + paddleHeight:
+                rowChars.append('|')
+            elif x == ballX and y == ballY:
+                rowChars.append('o')
             else:
-                row_chars.append(' ')
-        field.append(''.join(row_chars))
+                rowChars.append(' ')
+        field.append(''.join(rowChars))
 
-    bottom_border = '+' + '-' * (width - 2) + '+'
-    field.append(bottom_border)
+    bottomBorder = '+' + '-' * (width - 2) + '+'
+    field.append(bottomBorder)
     usersScore = ' ' * (width//2-3) + str(firstUserPoints) + ' : ' + str(secondUserPoints)
     field.append(usersScore)
 
     for line in field:
         print(line)
+
 
 def ballDirectionControl(ballY, paddleY, ballX, paddleX):
     ballDirection = 2
@@ -74,7 +73,10 @@ def printCup():
     """
 
     print(cup)
+    
+    
 while isEnd != 'q':
+    roundsAmount = int(input('Количество раундов: '))
     firstUserPoints = 0
     secondUserPoints = 0
     leftPaddleY = (height - paddleHeight) // 2
@@ -85,7 +87,7 @@ while isEnd != 'q':
     ballX = width // 2
     ballY = height // 2
     isFirstUserTurn = random.randint(0,1)
-    ballDirection = 2 #мяч изначально летит ровно
+    ballDirection = 2 
     
     while firstUserPoints + secondUserPoints != roundsAmount:
         drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY,firstUserPoints,secondUserPoints)
@@ -93,13 +95,14 @@ while isEnd != 'q':
         if ballX == leftPaddleX:
             ballX = width // 2
             ballY = height // 2
-            secondUserPoints += 1
             isFirstUserTurn = 0
+            secondUserPoints += 1
+            
         elif ballX == rightPaddleX:
             ballX = width // 2
             ballY = height // 2
-            firstUserPoints += 1
             isFirstUserTurn = 1
+            firstUserPoints += 1
             
         userTurn = input('Твой ход: ')
 
@@ -151,75 +154,21 @@ while isEnd != 'q':
         elif ballDirection == 3:
             ballY += 1
 
-            
-        
-            
-
-        
-            
-            
+        if firstUserPoints == secondUserPoints and firstUserPoints + secondUserPoints == roundsAmount:
+            print('Ничья! ' + str(firstUserPoints)+ ' : ' +  str(secondUserPoints))
+            userAns = input('Хотите сыграть бонусный раунд? Y - Да | Остальное - Нет: ')
+            if userAns == 'Y' or userAns == 'y':
+                roundsAmount += 1
+                continue
+    
     drawField(leftPaddleY,rightPaddleY,leftPaddleX,rightPaddleX,ballX,ballY,firstUserPoints,secondUserPoints)
     printCup()
     if firstUserPoints > secondUserPoints:
         print('Игрок P1 выиграл набрав', firstUserPoints, 'очков')
     elif firstUserPoints < secondUserPoints:
         print('Игрок P2 выиграл набрав', secondUserPoints, 'очков')
-    else:
-        print('Ничья! ' + str(firstUserPoints)+ ' : ' +  str(secondUserPoints))
+    
+
+
     isEnd = input('Хочешь ли ты начать заново? q = нет, остальное = да: ')
-
-    
-
-    
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-    
-
-    
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     
